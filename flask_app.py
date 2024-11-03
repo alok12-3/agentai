@@ -29,9 +29,9 @@ def generate_report():
     # Initialize agents
     researcher = Agent(
         role="Senior industry expert",
-        goal=f"investigate the segment of company and industry it is working in (e.g., Automotive, Manufacturing, Finance, Retail, Healthcare, etc.",
+        goal=f"investigate the segment of {company} and industry it is working, vision of company, key offerings and area of focus.",
         backstory="""You work at a prominent research institute.
-        Your expertise lies in sourcing and analyzing information on AI technologies used in the industry. You excel at breaking down complex data and presenting it in an accessible and insightful manner. you also keeps the website reference for each facts and information""",
+        Your expertise lies in analyzing basic information about the {company} and makeing a introductory repost about the {company}. You excel at breaking down complex data and presenting it in an accessible and insightful manner. you also keeps the website reference for each facts and information""",
         verbose=True,
         allow_delegation=False,
         tools=[search_tool],
@@ -100,8 +100,8 @@ def generate_report():
 
     task5 = Task(
         description=(
-            f"Create a combined detailed report with sections: (1) Overview of {company}, (2) Competitor analysis, and (3) AI/ML recommendations. "
-            f"Also add all links of reference websites at the end of the report with serial number and all links should be unique."
+            f"Create a combined detailed report with sections: (1) introduction of {company} its industry key products and area of focus, (2) Competitor analysis, and (3) AI/ML recommendations. "
+            f"Also add all links of reference websites only at the end of the report with serial number and all links should be unique."
         ),
         expected_output=f"Comprehensive report for {company}.",
         agent=writer,
