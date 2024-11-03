@@ -353,7 +353,57 @@ if company:
         verbose=1,
     )
 
-# if st.button("Run Research and Generate Report"):
+
+
+# Trigger the research and report generation
+if st.button("Run Research and Generate Report"):
+    with st.spinner("Working on tasks..."):
+        final = crew.kickoff()
+ 
+    # Store output in session state to prevent reset on download
+    st.session_state['final_output'] = final
+
+# Display and download report if generated
+if 'final_output' in st.session_state:
+    # Convert to HTML for saving as PDF
+    pdf_path = f'{company_directory}/output.pdf'
+    HTML(string=st.session_state['final_output']).write_pdf(pdf_path)
+
+    # Provide download button above the output
+    with open(pdf_path, "rb") as pdf_file:
+        st.download_button(
+            label="Download Report as PDF",
+            data=pdf_file,
+            file_name=f"{company}_report.pdf",
+            mime="application/pdf"
+        )
+
+    # Display the research output as it is
+    st.write("**Research output:**")
+    st.markdown(st.session_state['final_output'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # if st.button("Run Research and Generate Report"):
 #     with st.spinner("Working on tasks..."):
 #         final = crew.kickoff()
 
@@ -381,31 +431,3 @@ if company:
 #     st.write("**Research output:**")
 #     st.markdown(formatted_response)
 
-
-
-# Trigger the research and report generation
-if st.button("Run Research and Generate Report"):
-    with st.spinner("Working on tasks..."):
-        final = crew.kickoff()
-
-    # Store output in session state to prevent reset on download
-    st.session_state['final_output'] = final
-
-# Display and download report if generated
-if 'final_output' in st.session_state:
-    # Convert to HTML for saving as PDF
-    pdf_path = f'{company_directory}/output.pdf'
-    HTML(string=st.session_state['final_output']).write_pdf(pdf_path)
-
-    # Provide download button above the output
-    with open(pdf_path, "rb") as pdf_file:
-        st.download_button(
-            label="Download Report as PDF",
-            data=pdf_file,
-            file_name=f"{company}_report.pdf",
-            mime="application/pdf"
-        )
-
-    # Display the research output as it is
-    st.write("**Research output:**")
-    st.markdown(st.session_state['final_output'])
