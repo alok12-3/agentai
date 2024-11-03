@@ -1,4 +1,7 @@
 crewai==0.30.11
 crewai-tools==0.2.6
 langchain-google-genai==1.0.3
-streamlit==1.25.0  # Replace with latest Streamlit version
+streamlit
+markdown2
+weasyprint
+

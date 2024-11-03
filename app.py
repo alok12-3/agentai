@@ -269,6 +269,7 @@ if company:
         allow_delegation=False,
         tools=[search_tool],
         llm=ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.1),
+    
     )
 
     researcher2 = Agent(
@@ -279,6 +280,7 @@ if company:
         allow_delegation=False,
         tools=[search_tool],
         llm=ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.1),
+     
     )
 
     innovator = Agent(
@@ -289,6 +291,7 @@ if company:
         allow_delegation=False,
         tools=[search_tool],
         llm=ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.8),
+        
     )
 
     writer = Agent(
@@ -298,6 +301,7 @@ if company:
         verbose=True,
         allow_delegation=True,
         llm=ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.7),
+       
     )
 
     # Define output directory
@@ -349,6 +353,37 @@ if company:
         verbose=1,
     )
 
+# if st.button("Run Research and Generate Report"):
+#     with st.spinner("Working on tasks..."):
+#         final = crew.kickoff()
+
+#     # Store output in session state to prevent reset on download
+#     st.session_state['final_output'] = final
+
+# # Display and download report if generated
+# if 'final_output' in st.session_state:
+#     # Convert to HTML and save as PDF
+#     html_content = markdown(st.session_state['final_output'])
+#     pdf_path = f'{company_directory}/output.pdf'
+#     HTML(string=html_content).write_pdf(pdf_path)
+
+#     # Provide download button above the output
+#     with open(pdf_path, "rb") as pdf_file:
+#         st.download_button(
+#             label="Download Report as PDF",
+#             data=pdf_file,
+#             file_name=f"{company}_report.pdf",
+#             mime="application/pdf"
+#         )
+
+#     # Display the formatted research output below the download button
+#     formatted_response = markdown(st.session_state['final_output'].replace("**", "**"))
+#     st.write("**Research output:**")
+#     st.markdown(formatted_response)
+
+
+
+# Trigger the research and report generation
 if st.button("Run Research and Generate Report"):
     with st.spinner("Working on tasks..."):
         final = crew.kickoff()
@@ -358,10 +393,9 @@ if st.button("Run Research and Generate Report"):
 
 # Display and download report if generated
 if 'final_output' in st.session_state:
-    # Convert to HTML and save as PDF
-    html_content = markdown(st.session_state['final_output'])
+    # Convert to HTML for saving as PDF
     pdf_path = f'{company_directory}/output.pdf'
-    HTML(string=html_content).write_pdf(pdf_path)
+    HTML(string=st.session_state['final_output']).write_pdf(pdf_path)
 
     # Provide download button above the output
     with open(pdf_path, "rb") as pdf_file:
@@ -372,7 +406,6 @@ if 'final_output' in st.session_state:
             mime="application/pdf"
         )
 
-    # Display the formatted research output below the download button
-    formatted_response = markdown(st.session_state['final_output'].replace("**", "**"))
+    # Display the research output as it is
     st.write("**Research output:**")
-    st.markdown(formatted_response)
+    st.markdown(st.session_state['final_output'])
