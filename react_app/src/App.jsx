@@ -51,7 +51,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>AI Research & Report Generation for Company</h1>
+      <h1>Market Research & Use Case Generation Agent</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
