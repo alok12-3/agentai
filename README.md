@@ -49,8 +49,7 @@ Ensure you have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/MarketResearchAgent.git
-   cd MarketResearchAgent
+   git clone https://github.com/alok12-3/agentai.git
    ```
 
 2. Install dependencies:
@@ -122,7 +121,7 @@ MarketResearchAgent/
 
 ## Tech Stack
 
-- **Backend**: Flask, CrewAI, Serper, Google Generative AI, WeasyPrint
+- **Backend**: Flask, CrewAI, Serper,langchain, Google Generative AI, WeasyPrint
 - **Frontend**: React, HTML, CSS
 - **Hosting**: Vercel
 
