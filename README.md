@@ -69,13 +69,13 @@ Ensure you have the following installed:
 
 1. Navigate to the frontend directory and install dependencies:
    ```bash
-   cd frontend
+   cd react_app
    npm install
    ```
 
 2. Start the React frontend:
    ```bash
-   npm start
+   npm run dev
    ```
 
 ---
