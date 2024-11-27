@@ -29,9 +29,9 @@ def generate_report():
     # Initialize agents
     researcher = Agent(
         role="Senior industry expert",
-        goal=f"investigate the segment of company and industry it is working in (e.g., Automotive, Manufacturing, Finance, Retail, Healthcare, etc.",
+        goal=f"investigate the segment of {company} and its industry also find the products offered by {company} and vision and misson of the {company}",
         backstory="""You work at a prominent research institute.
-        Your expertise lies in sourcing and analyzing information on AI technologies used in the industry. You excel at breaking down complex data and presenting it in an accessible and insightful manner. you also keeps the website reference for each facts and information""",
+        Your expertise lies in analysing information about industry and finding basic details about the {company} and analysisng its industry and vision and misson of {company} along with their products.You excel at breaking down complex data and presenting it in an accessible and insightful manner. you also keeps the website reference for each facts and information""",
         verbose=True,
         allow_delegation=False,
         tools=[search_tool],
@@ -79,7 +79,6 @@ def generate_report():
         expected_output=f"A comprehensive report about {company} with industry vision, products, and opportunities. All reference website links should be kept.",
         tools=[search_tool],
         agent=researcher,
-        output_file=f'{company_directory}/report_about.md'
     )
 
     task2 = Task(
@@ -87,7 +86,6 @@ def generate_report():
         expected_output=f"Competitor analysis report with major competitors of {company}. All reference website links should be kept.",
         tools=[search_tool],
         agent=researcher2,
-        output_file=f'{company_directory}/report_competition.md'
     )
 
     task3 = Task(
@@ -95,40 +93,31 @@ def generate_report():
         expected_output=f"Use case report with AI/ML recommendations for {company}. All reference website links should be kept.",
         tools=[search_tool],
         agent=innovator,
-        output_file=f'{company_directory}/report_use_of_ai.md'
     )
 
-    task5 = Task(
+    task4 = Task(
         description=(
             f"Create a combined detailed report with sections: (1) Overview of {company}, (2) Competitor analysis, and (3) AI/ML recommendations. "
             f"Also add all links of reference websites at the end of the report with serial number and all links should be unique."
         ),
         expected_output=f"Comprehensive report for {company}.",
         agent=writer,
-        output_file=f'{company_directory}/report_temp_sam.md'
     )
 
     # Set up the Crew
     crew = Crew(
         agents=[researcher, researcher2, innovator, writer],
-        tasks=[task1, task2, task3, task5],
-        verbose=1,
+        tasks=[task1, task2, task3, task4],
+        verbose=True,
     )
 
     # Trigger the research and report generation
     final = crew.kickoff()
-
-    # # Convert to HTML for saving as PDF
-    # pdf_path = f'{company_directory}/output.pdf'
-    # HTML(string=final).write_pdf(pdf_path)
-
-    # return send_file(pdf_path, as_attachment=True)
-     # Create PDF in memory
     
     finalstr=markdown(final)
     pdf_buffer = BytesIO()
     HTML(string=finalstr).write_pdf(pdf_buffer)
-    pdf_buffer.seek(0)  # Move to the beginning of the BytesIO buffer
+    pdf_buffer.seek(0)
 
     # Return the PDF as an attachment
     return send_file(pdf_buffer, as_attachment=True, download_name=f'{company}_report.pdf', mimetype='application/pdf')

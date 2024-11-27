@@ -35,7 +35,6 @@ function App() {
         throw new Error("Failed to generate report");
       }
 
-      // Create a blob from the PDF response
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       setDownloadLink(url);
@@ -51,13 +50,13 @@ function App() {
 
   return (
     <div className="App">
-      <h1>AI Research & Report Generation for Company</h1>
+      <h1>Market Research & Use Case Generation Agent</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
-          placeholder="Enter company name"
+          placeholder="Enter name of the company"
           required
         />
         <button type="submit" disabled={loading}>
