@@ -1,4 +1,4 @@
-```markdown
+
 # 🌟 Multi-Agent System for Market Research & AI Use Case Generation
 
 An AI-powered multi-agent system designed to conduct market research and generate actionable AI/ML use cases for companies across diverse industries. This project leverages state-of-the-art tools and methodologies to deliver detailed insights, competitor analysis, and innovation recommendations.
